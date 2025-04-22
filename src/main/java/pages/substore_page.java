@@ -18,41 +18,28 @@ import org.openqa.selenium.support.ui.Select;
 public class substore_page extends StartupPage {
 
 	//TC-1 Locators
-		public By getUsernameTextfieldLocator() {
-			return By.id("username_id");
-		}
-
-		public By getPasswordTextboxLocator() {
-
-			return By.xpath("//input[@id='password']");
-		}
-
-		public By getSignInButtonLocator() {
-			return By.xpath("//button[@id='login']");
-		}
-
-		public By getDropDownLocater() {
-			return By.xpath("//a[@href='#/WardSupply']");
-		}
+		public By getUsernameTextfieldLocator = By.id("username_id");
+		public By getPasswordTextboxLocator = By.xpath("//input[@id='password']");
+		public By getSignInButtonLocator = By.xpath("//button[@id='login']");
+		public By getDropDownLocater = By.xpath("//a[@href='#/WardSupply']");
 //		TC-2 Locators
-		public By getCounterButtonFourth() {
-			return By.xpath("//a[@class='report_list']");
-		}
+		public By getCounterButtonFourth = By.xpath("//a[@class='report_list']");
 //		TC-3 Locators
-		public By getAnchorTagLocatorByText(String anchorTagName) {
-			return By.xpath("//a[contains(text(),'" + anchorTagName + "')]");
-		}
-		
-		public By getModuleSignoutLocator() {
-			return By.xpath("//i[contains(@class,'sign-out')]");
-		}
-		public By getHoverText() {
-			return By.xpath("//h6[contains(text(),'To change, you can always click here.')]");
-		}
+		public By getAnchorTagLocatorInventory = By.xpath("//a[contains(text(),'Inventory')]");
+		public By getModuleSignoutLocator = By.xpath("//i[contains(@class,'sign-out')]");
+		public By getHoverText = By.xpath("//h6[contains(text(),'To change, you can always click here.')]");
+//		TC-4 Locators
+		public By getAnchorTagLocatorPharmacy = By.xpath("//a[contains(text(),'Pharmacy')]");
 //		TC-5 Locators
-		public By getSubModuleLocator() {
-			return By.xpath("//ul[contains(@class,'nav-tabs')]//li//a");
-		}
+		public By getSubModuleLocator = By.xpath("//ul[contains(@class,'nav-tabs')]//li//a");
+//		TC-6 Locators
+		public By getAnchorTagLocatorStock = By.xpath("//a[contains(text(),'Stock')]");
+		public By getAnchorTagLocatorByTextInventoryRequisition = By.xpath("//a[contains(text(),'Inventory Requisition')]");
+		public By getAnchorTagLocatorConsumption = By.xpath("//a[contains(text(),'Consumption')]");
+		public By getAnchorTagLocatorReports = By.xpath("//a[contains(text(),'Reports')]");
+		public By getAnchorTagLocatorPatientConsumption = By.xpath("//a[contains(text(),'Patient Consumption')]");
+		public By getAnchorTagLocatorReturn = By.xpath("//a[contains(text(),'Return')]");
+
 		
 	public substore_page(WebDriver driver) {
 		super(driver);
@@ -69,17 +56,17 @@ public class substore_page extends StartupPage {
 	public boolean loginToHealthAppByGivenValidCredetial(Map<String, String> expectedData) throws Exception {
 		Boolean textIsDisplayed = false;
 		try {
-			WebElement usernametextFieldWebElement = commonEvents.findElement(getUsernameTextfieldLocator());
+			WebElement usernametextFieldWebElement = commonEvents.findElement(getUsernameTextfieldLocator);
 			commonEvents.highlightElement(usernametextFieldWebElement);
-			commonEvents.sendKeys(getUsernameTextfieldLocator(), expectedData.get("username"));
+			commonEvents.sendKeys(getUsernameTextfieldLocator, expectedData.get("username"));
 
-			WebElement passwordtextFieldWebElement = commonEvents.findElement(getPasswordTextboxLocator());
+			WebElement passwordtextFieldWebElement = commonEvents.findElement(getPasswordTextboxLocator);
 			commonEvents.highlightElement(passwordtextFieldWebElement);
-			commonEvents.sendKeys(getPasswordTextboxLocator(), expectedData.get("password"));
+			commonEvents.sendKeys(getPasswordTextboxLocator, expectedData.get("password"));
 
-			WebElement signinButtonWebElement = commonEvents.findElement(getPasswordTextboxLocator());
+			WebElement signinButtonWebElement = commonEvents.findElement(getPasswordTextboxLocator);
 			commonEvents.highlightElement(signinButtonWebElement);
-			commonEvents.click(getSignInButtonLocator());
+			commonEvents.click(getSignInButtonLocator);
 			textIsDisplayed = true;
 		} catch (Exception e) {
 			throw e;
@@ -99,7 +86,7 @@ public class substore_page extends StartupPage {
 		boolean scrolledTillElement = false;
 		try {
 			JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-			WebElement SubstoreTab = commonEvents.findElement(getDropDownLocater());
+			WebElement SubstoreTab = commonEvents.findElement(getDropDownLocater);
 			jsExecutor.executeScript("arguments[0].scrollIntoView(true);", SubstoreTab);
 			jsExecutor.executeScript("window.scrollBy(0, -50)");
 			commonEvents.highlight(SubstoreTab);
@@ -142,7 +129,7 @@ public class substore_page extends StartupPage {
 	 */
 	public boolean clickFourthCounterIfAvailable() throws Exception {
 		try {
-			List<WebElement> counterElements = commonEvents.getWebElements(getCounterButtonFourth());
+			List<WebElement> counterElements = commonEvents.getWebElements(getCounterButtonFourth);
 			System.out.println("Elemets size >> " + counterElements.size());
 			int numberOfCounterElements = counterElements.size();
 			if (numberOfCounterElements > 0) {
@@ -169,10 +156,10 @@ public class substore_page extends StartupPage {
 	public boolean verifyModuleSignoutHoverText(Map<String, String> substoreExpectedData) throws Exception {
 		try {
 			// Click on the "Inventory" section.
-			commonEvents.click(getAnchorTagLocatorByText("Inventory"));
+			commonEvents.click(getAnchorTagLocatorInventory);
 
 			// Locate the "Sign Out" module for hover action.
-			WebElement elementToHover = commonEvents.findElement(getModuleSignoutLocator());
+			WebElement elementToHover = commonEvents.findElement(getModuleSignoutLocator);
 
 			// Create an instance of Actions class to perform hover action.
 			Actions actions = new Actions(driver);
@@ -181,7 +168,7 @@ public class substore_page extends StartupPage {
 			actions.moveToElement(elementToHover).perform();
 
 			// Retrieve the hover text displayed.
-			String elementText = commonEvents.findElement(getHoverText()).getText();
+			String elementText = commonEvents.findElement(getHoverText).getText();
 			System.out.println("Element text -->  " + elementText);
 
 			// Check if the hover text matches the expected value.
@@ -215,8 +202,8 @@ public class substore_page extends StartupPage {
 			System.out.println("Substore Page URL: " + substoreExpectedData.get("URL"));
 
 			// Find the Inventory and Pharmacy sub-modules
-			WebElement inventorySubModule = commonEvents.findElement(getAnchorTagLocatorByText("Inventory"));
-			WebElement pharmacySubModule = commonEvents.findElement(getAnchorTagLocatorByText("Pharmacy"));
+			WebElement inventorySubModule = commonEvents.findElement(getAnchorTagLocatorInventory);
+			WebElement pharmacySubModule = commonEvents.findElement(getAnchorTagLocatorPharmacy);
 
 			// Highlight and click on the Inventory sub-module
 			commonEvents.highlight(inventorySubModule).click(inventorySubModule);
@@ -241,14 +228,14 @@ public class substore_page extends StartupPage {
 	 *           elements are found.
 	 * @author : YAKSHA
 	 */
-	public boolean subModulePresent(String moduleName) throws Exception {
+	public boolean subModulePresentInventory() throws Exception {
 		boolean areModulesDisplayed = false;
 		try {
 			// Click on the specified module
-			commonEvents.click(getAnchorTagLocatorByText(moduleName));
+			commonEvents.click(getAnchorTagLocatorInventory);
 
 			// Get the list of sub-module elements
-			List<WebElement> subModuleElements = commonEvents.getWebElements(getSubModuleLocator());
+			List<WebElement> subModuleElements = commonEvents.getWebElements(getSubModuleLocator);
 			System.out.println("Sub-module count: " + subModuleElements.size());
 
 			// Check if the sub-modules are displayed
@@ -280,36 +267,36 @@ public class substore_page extends StartupPage {
 	public boolean verifyNavigationBetweenSubmodules() throws Exception {
 		try {
 			// Clicking on the "Inventory" submodule to start navigation.
-			commonEvents.click(getAnchorTagLocatorByText("Inventory"));
+			commonEvents.click(getAnchorTagLocatorInventory);
 
 			// Navigating to the "Stock" submodule and waiting for the URL to update.
-			commonEvents.click(getAnchorTagLocatorByText("Stock"));
+			commonEvents.click(getAnchorTagLocatorStock);
 			commonEvents.waitForUrlContains("Inventory/Stock", 5000);
 
 			// Navigating to the "Inventory Requisition" submodule and waiting for the URL
 			// to update.
-			commonEvents.click(getAnchorTagLocatorByText("Inventory Requisition"));
+			commonEvents.click(getAnchorTagLocatorByTextInventoryRequisition);
 			commonEvents.waitForUrlContains("Inventory/InventoryRequisitionList", 5000);
 
 			// Navigating to the "Consumption" submodule and waiting for the URL to update.
-			commonEvents.click(getAnchorTagLocatorByText("Consumption"));
+			commonEvents.click(getAnchorTagLocatorConsumption);
 			commonEvents.waitForUrlContains("Inventory/Consumption/ConsumptionList", 5000);
 
 			// Navigating to the "Reports" submodule and waiting for the URL to update.
-			commonEvents.click(getAnchorTagLocatorByText("Reports"));
+			commonEvents.click(getAnchorTagLocatorReports);
 			commonEvents.waitForUrlContains("Inventory/Reports", 5000);
 
 			// Navigating to the "Patient Consumption" submodule and waiting for the URL to
 			// update.
-			commonEvents.click(getAnchorTagLocatorByText("Patient Consumption"));
+			commonEvents.click(getAnchorTagLocatorPatientConsumption);
 			commonEvents.waitForUrlContains("Inventory/PatientConsumption/PatientConsumptionList", 5000);
 
 			// Navigating to the "Return" submodule and waiting for the URL to update.
-			commonEvents.click(getAnchorTagLocatorByText("Return"));
+			commonEvents.click(getAnchorTagLocatorReturn);
 			commonEvents.waitForUrlContains("Inventory/Return", 5000);
 
 			// Finally, navigating back to the "Stock" submodule.
-			commonEvents.click(getAnchorTagLocatorByText("Stock"));
+			commonEvents.click(getAnchorTagLocatorStock);
 
 			// Return true if all navigations are successful.
 			return true;

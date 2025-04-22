@@ -115,7 +115,7 @@ public class substore_testcase extends AppTestBase {
 	public void verifyAllSubstoreModulesAreDisplayedInSublist() throws Exception {
 		substorePageInstance = new substore_page(driver);
 
-		Assert.assertTrue(substorePageInstance.subModulePresent("Inventory"));
+		Assert.assertTrue(substorePageInstance.subModulePresentInventory());
 	}
 
 	@Test(priority = 6, groups = { "sanity" }, description = "Pre condition: User should be logged in \r\n"
